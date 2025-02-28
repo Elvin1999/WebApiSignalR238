@@ -21,6 +21,22 @@ namespace WebApiSignalR238.Controllers
             return await _fileService.Read();
         }
 
+        [HttpGet("Room")]
+        public async Task<double> Get(string room)
+        {
+            var data=await _fileService.Read(room);
+            return data;
+        }
+
+        [HttpGet("IncreaseRoom")]
+        public async Task<ActionResult> IncreaseRoom(string room,double data)
+        {
+            var result = (await _fileService.Read(room)) + data;
+            await _fileService.Write(room, result);
+            return Ok(result);  
+        }
+
+
         [HttpGet("Increase")]
         public async Task<ActionResult> Increase(double data)
         {
